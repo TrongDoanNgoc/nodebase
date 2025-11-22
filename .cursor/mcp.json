@@ -10,10 +10,15 @@
     "Better Auth": {
       "url": "https://mcp.chonkie.ai/better-auth/better-auth-builder/mcp"
     },
-     "next-devtools": {
+    "next-devtools": {
       "command": "npx",
-      "args": ["-y", "next-devtools-mcp@latest"]
+      "args": [
+        "-y",
+        "next-devtools-mcp@latest"
+      ]
+    },
+    "Sentry": {
+      "url": "https://mcp.sentry.dev/mcp/trongdn/nodebase"
     }
   }
 }
-
