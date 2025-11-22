@@ -1,17 +1,26 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
-import { requireAuth } from "@/lib/auth-utils";
-import { caller } from "@/trpc/server";
 import Logout from "./logout";
 import { useTRPC } from "@/trpc/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const Page = () => {
   const trpc = useTRPC();
   const { data: workflows } = useQuery(trpc.getWorkflows.queryOptions());
   const queryClient = useQueryClient();
 
-  const testAi = useMutation(trpc.testAi.mutationOptions());
+  const testAi = useMutation(
+    trpc.testAi.mutationOptions({
+      onSuccess: () => {
+        toast.success("AI job queued");
+      },
+      onError: () => {
+        toast.error("Something went wrong");
+      },
+    })
+  );
 
   const create = useMutation(
     trpc.createWorkflow.mutationOptions({
