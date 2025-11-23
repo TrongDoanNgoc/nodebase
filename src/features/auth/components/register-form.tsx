@@ -1,16 +1,10 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -18,23 +12,23 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { authClient } from "@/lib/auth-client";
-import { toast } from "sonner";
-import Image from "next/image";
+} from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import Link from 'next/link';
+import { authClient } from '@/lib/auth-client';
+import { toast } from 'sonner';
+import Image from 'next/image';
 
 const registerSchema = z
   .object({
-    email: z.email("Please enter a valid email address"),
-    password: z.string().min(1, "Password is required"),
+    email: z.email('Please enter a valid email address'),
+    password: z.string().min(1, 'Password is required'),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
   });
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
@@ -45,9 +39,9 @@ export const RegisterForm = () => {
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      email: "",
-      password: "",
-      confirmPassword: "",
+      email: '',
+      password: '',
+      confirmPassword: '',
     },
   });
 
@@ -57,16 +51,16 @@ export const RegisterForm = () => {
         name: values.email,
         email: values.email,
         password: values.password,
-        callbackURL: "/",
+        callbackURL: '/',
       },
       {
         onSuccess: () => {
-          router.push("/");
+          router.push('/');
         },
         onError: (ctx) => {
           toast.error(ctx.error.message);
         },
-      }
+      },
     );
   };
 
@@ -84,34 +78,14 @@ export const RegisterForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="grid gap-6">
                 <div className="flex flex-col gap-4">
-                  <Button
-                    variant={"outline"}
-                    className="w-full"
-                    disabled={isPending}
-                    type="button"
-                  >
-                    <Image
-                      src="/logos/github.svg"
-                      alt="Github"
-                      width={20}
-                      height={20}
-                    />
+                  <Button variant={'outline'} className="w-full" disabled={isPending} type="button">
+                    <Image src="/logos/github.svg" alt="Github" width={20} height={20} />
                     Continue with Github
                   </Button>
                 </div>
                 <div className="flex flex-col gap-4">
-                  <Button
-                    variant={"outline"}
-                    className="w-full"
-                    disabled={isPending}
-                    type="button"
-                  >
-                    <Image
-                      src="/logos/google.svg"
-                      alt="Google"
-                      width={20}
-                      height={20}
-                    />
+                  <Button variant={'outline'} className="w-full" disabled={isPending} type="button">
+                    <Image src="/logos/google.svg" alt="Google" width={20} height={20} />
                     Continue with Google
                   </Button>
                 </div>
@@ -123,11 +97,7 @@ export const RegisterForm = () => {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input
-                            type="email"
-                            placeholder="m@example.com"
-                            {...field}
-                          />
+                          <Input type="email" placeholder="m@example.com" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -140,11 +110,7 @@ export const RegisterForm = () => {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input
-                            type="password"
-                            placeholder="********"
-                            {...field}
-                          />
+                          <Input type="password" placeholder="********" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -157,11 +123,7 @@ export const RegisterForm = () => {
                       <FormItem>
                         <FormLabel>Confirm Password</FormLabel>
                         <FormControl>
-                          <Input
-                            type="password"
-                            placeholder="Confirm password"
-                            {...field}
-                          />
+                          <Input type="password" placeholder="Confirm password" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -170,12 +132,9 @@ export const RegisterForm = () => {
                   <Button type="submit" className="w-full" disabled={isPending}>
                     Create account
                   </Button>
-                  <p className="text-sm text-center">
-                    Already have an account?{" "}
-                    <Link
-                      href="/login"
-                      className="underline underline-offset-4"
-                    >
+                  <p className="text-center text-sm">
+                    Already have an account?{' '}
+                    <Link href="/login" className="underline underline-offset-4">
                       Login
                     </Link>
                   </p>

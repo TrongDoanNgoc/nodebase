@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   CreditCardIcon,
@@ -7,7 +7,7 @@ import {
   KeyIcon,
   LogOutIcon,
   StarIcon,
-} from "lucide-react";
+} from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -18,32 +18,32 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
-import { toast } from "sonner";
-import { useHasActiveSubscription } from "@/features/subscriptions/hooks/use-subscription";
+} from '@/components/ui/sidebar';
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
+import { authClient } from '@/lib/auth-client';
+import { toast } from 'sonner';
+import { useHasActiveSubscription } from '@/features/subscriptions/hooks/use-subscription';
 
 const menuItems = [
   {
-    title: "Home",
+    title: 'Home',
     items: [
       {
-        title: "Workflows",
+        title: 'Workflows',
         icon: FolderOpenIcon,
-        url: "/workflows",
+        url: '/workflows',
       },
       {
-        title: "Credentials",
+        title: 'Credentials',
         icon: KeyIcon,
-        url: "/credentials",
+        url: '/credentials',
       },
       {
-        title: "Executions",
+        title: 'Executions',
         icon: HistoryIcon,
-        url: "/executions",
+        url: '/executions',
       },
     ],
   },
@@ -57,15 +57,10 @@ export const AppSidebar = () => {
     <Sidebar collapsible="icon">
       <SidebarHeader>
         <SidebarMenuItem>
-          <SidebarMenuButton asChild className="gap-x-4 h-10 px-4">
+          <SidebarMenuButton asChild className="h-10 gap-x-4 px-4">
             <Link href="/">
-              <Image
-                src="/logos/logo.svg"
-                alt="Nodebase"
-                width={30}
-                height={30}
-              />
-              <span className="font-semibold text-sm">Nodebase</span>
+              <Image src="/logos/logo.svg" alt="Nodebase" width={30} height={30} />
+              <span className="text-sm font-semibold">Nodebase</span>
             </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
@@ -80,12 +75,10 @@ export const AppSidebar = () => {
                     <SidebarMenuButton
                       tooltip={item.title}
                       isActive={
-                        item.url === "/"
-                          ? pathname === item.url
-                          : pathname.startsWith(item.url)
+                        item.url === '/' ? pathname === item.url : pathname.startsWith(item.url)
                       }
                       asChild
-                      className="gap-x-4 h-10 px-4"
+                      className="h-10 gap-x-4 px-4"
                     >
                       <Link href={item.url} prefetch>
                         <item.icon className="size-4" />
@@ -105,9 +98,9 @@ export const AppSidebar = () => {
             <SidebarMenuItem>
               <SidebarMenuButton
                 tooltip="Upgrade to Pro"
-                className="gap-x-4 h-10 px-4"
+                className="h-10 gap-x-4 px-4"
                 onClick={() => {
-                  authClient.checkout({ slug: "pro" });
+                  authClient.checkout({ slug: 'pro' });
                 }}
               >
                 <StarIcon className="size-4" />
@@ -118,7 +111,7 @@ export const AppSidebar = () => {
           <SidebarMenuItem>
             <SidebarMenuButton
               tooltip="Billing Portal"
-              className="gap-x-4 h-10 px-4"
+              className="h-10 gap-x-4 px-4"
               onClick={() => authClient.customer.portal()}
             >
               <CreditCardIcon className="size-4" />
@@ -128,12 +121,12 @@ export const AppSidebar = () => {
           <SidebarMenuItem>
             <SidebarMenuButton
               tooltip="Sign out"
-              className="gap-x-4 h-10 px-4"
+              className="h-10 gap-x-4 px-4"
               onClick={() =>
                 authClient.signOut({
                   fetchOptions: {
                     onSuccess: () => {
-                      router.push("/login");
+                      router.push('/login');
                     },
                     onError: (ctx) => {
                       toast.error(ctx.error.message);

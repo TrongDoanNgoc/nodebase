@@ -2,10 +2,10 @@
 // The config you add here will be used whenever the server handles a request.
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
-import * as Sentry from "@sentry/nextjs";
+import * as Sentry from '@sentry/nextjs';
 
 Sentry.init({
-  dsn: "https://8d7daf37990e6a971e9f25584c213250@o4510408973549568.ingest.us.sentry.io/4510408980037632",
+  dsn: 'https://8d7daf37990e6a971e9f25584c213250@o4510408973549568.ingest.us.sentry.io/4510408980037632',
 
   integrations: [
     // Add the Vercel AI SDK integration to sentry.server.config.ts
@@ -13,7 +13,7 @@ Sentry.init({
       recordInputs: true,
       recordOutputs: true,
     }),
-    Sentry.consoleLoggingIntegration({ levels: ["log", "warn", "error"] }),
+    Sentry.consoleLoggingIntegration({ levels: ['log', 'warn', 'error'] }),
   ],
 
   // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.

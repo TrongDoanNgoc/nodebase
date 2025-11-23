@@ -1,16 +1,10 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -18,17 +12,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { toast } from "sonner";
-import { authClient } from "@/lib/auth-client";
-import Image from "next/image";
+} from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import Link from 'next/link';
+import { toast } from 'sonner';
+import { authClient } from '@/lib/auth-client';
+import Image from 'next/image';
 
 const loginSchema = z.object({
-  email: z.email("Please enter a valid email address"),
-  password: z.string().min(1, "Password is required"),
+  email: z.email('Please enter a valid email address'),
+  password: z.string().min(1, 'Password is required'),
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
@@ -39,8 +33,8 @@ export const LoginForm = () => {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 
@@ -49,16 +43,16 @@ export const LoginForm = () => {
       {
         email: values.email,
         password: values.password,
-        callbackURL: "/",
+        callbackURL: '/',
       },
       {
         onSuccess: () => {
-          router.push("/");
+          router.push('/');
         },
         onError: (ctx) => {
           toast.error(ctx.error.message);
         },
-      }
+      },
     );
   };
 
@@ -76,34 +70,14 @@ export const LoginForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="grid gap-6">
                 <div className="flex flex-col gap-4">
-                  <Button
-                    variant={"outline"}
-                    className="w-full"
-                    disabled={isPending}
-                    type="button"
-                  >
-                    <Image
-                      src="/logos/github.svg"
-                      alt="Github"
-                      width={20}
-                      height={20}
-                    />
+                  <Button variant={'outline'} className="w-full" disabled={isPending} type="button">
+                    <Image src="/logos/github.svg" alt="Github" width={20} height={20} />
                     Continue with Github
                   </Button>
                 </div>
                 <div className="flex flex-col gap-4">
-                  <Button
-                    variant={"outline"}
-                    className="w-full"
-                    disabled={isPending}
-                    type="button"
-                  >
-                    <Image
-                      src="/logos/google.svg"
-                      alt="Google"
-                      width={20}
-                      height={20}
-                    />
+                  <Button variant={'outline'} className="w-full" disabled={isPending} type="button">
+                    <Image src="/logos/google.svg" alt="Google" width={20} height={20} />
                     Continue with Google
                   </Button>
                 </div>
@@ -115,11 +89,7 @@ export const LoginForm = () => {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input
-                            type="email"
-                            placeholder="m@example.com"
-                            {...field}
-                          />
+                          <Input type="email" placeholder="m@example.com" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -132,11 +102,7 @@ export const LoginForm = () => {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input
-                            type="password"
-                            placeholder="********"
-                            {...field}
-                          />
+                          <Input type="password" placeholder="********" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -145,12 +111,9 @@ export const LoginForm = () => {
                   <Button type="submit" className="w-full" disabled={isPending}>
                     Login
                   </Button>
-                  <p className="text-sm text-center">
-                    Don&apos;t have an account?{" "}
-                    <Link
-                      href="/signup"
-                      className="underline underline-offset-4"
-                    >
+                  <p className="text-center text-sm">
+                    Don&apos;t have an account?{' '}
+                    <Link href="/signup" className="underline underline-offset-4">
                       Sign up
                     </Link>
                   </p>
