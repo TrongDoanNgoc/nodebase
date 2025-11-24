@@ -1,6 +1,7 @@
-import { PlusIcon } from 'lucide-react';
+import { PlusIcon, SearchIcon } from 'lucide-react';
 import { Button } from './ui/button';
 import Link from 'next/link';
+import { Input } from './ui/input';
 
 type EntityHeaderProps = {
   title: string;
@@ -73,6 +74,66 @@ export const EntityContainer = ({ children, header, search, pagination }: Entity
           {children}
         </div>
         {pagination}
+      </div>
+    </div>
+  );
+};
+
+interface EntitySearchProps {
+  placeholder?: string;
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export const EntitySearch = ({ placeholder = 'Search', value, onChange }: EntitySearchProps) => {
+  return (
+    <div className="relative ml-auto">
+      <SearchIcon className="absolute top-1/2 left-3 size-3.5 -translate-y-1/2" />
+      <Input
+        type="text"
+        className="bg-background border-border max-w-[200px] pl-8 shadow-none"
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
+    </div>
+  );
+};
+
+interface EntityPaginationProps {
+  page: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  disabled?: boolean;
+}
+export const EntityPagination = ({
+  page,
+  totalPages,
+  onPageChange,
+  disabled,
+}: EntityPaginationProps) => {
+  return (
+    <div className="flex items-center justify-between gap-x-2">
+      <div className="text-muted-foreground flex-1 text-sm">
+        Page {page} of {totalPages || 1}
+      </div>
+      <div className="flex items-center justify-end space-x-2 py-2">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => onPageChange(Math.max(1, page - 1))}
+          disabled={page === 1 || disabled}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => onPageChange(Math.min(totalPages, page + 1))}
+          disabled={page === totalPages || totalPages === 0 || disabled}
+        >
+          Next
+        </Button>
       </div>
     </div>
   );
