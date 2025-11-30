@@ -4,6 +4,7 @@ import './globals.css';
 import { TRPCReactProvider } from '@/trpc/client';
 import { Toaster } from '@/components/ui/sonner';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,6 +33,7 @@ export default function RootLayout({
           <NuqsAdapter>
             {children}
             <Toaster />
+            <ReactQueryDevtools initialIsOpen={true} />
           </NuqsAdapter>
         </TRPCReactProvider>
       </body>
