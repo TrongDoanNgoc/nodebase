@@ -183,7 +183,7 @@ export const LoadingView = ({ message }: LoadingViewProps) => {
 export const ErrorView = ({ message }: StateViewProps) => {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-y-4">
-      <AlertTriangleIcon className="text-primary size-6 animate-spin" />
+      <AlertTriangleIcon className="text-primary size-6" />
       {!!message && <p className="text-muted-foreground text-sm">{message}</p>}
     </div>
   );
