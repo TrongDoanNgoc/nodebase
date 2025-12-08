@@ -20,9 +20,9 @@ import { useEffect, useRef, useState } from 'react';
 
 export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
   return (
-    <div className="ml-auto">
+    <div className='ml-auto'>
       <Button size={'sm'} onClick={() => {}} disabled={false}>
-        <SaveIcon className="size-4" />
+        <SaveIcon className='size-4' />
       </Button>
     </div>
   );
@@ -34,7 +34,7 @@ export const EditorBreadcrumbs = ({ workflowId }: { workflowId: string }) => {
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href="/workflows" prefetch>
+            <Link href='/workflows' prefetch>
               Workflows
             </Link>
           </BreadcrumbLink>
@@ -97,12 +97,12 @@ export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
     return (
       <Input
         disabled={updateWorkflowName.isPending}
-        type="text"
+        type='text'
         value={name}
         onChange={(e) => setName(e.target.value)}
         onKeyDown={handleKeyDown}
         ref={inputRef}
-        className="h-7 w-auto min-w-[100px] px-2"
+        className='h-7 w-auto min-w-[100px] px-2'
       />
     );
   }
@@ -110,7 +110,7 @@ export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
   return (
     <BreadcrumbItem
       onClick={() => setIsEditing(true)}
-      className="hover:text-foreground cursor-pointer transition-colors"
+      className='hover:text-foreground cursor-pointer transition-colors'
     >
       {workflow.name}
     </BreadcrumbItem>
@@ -119,9 +119,9 @@ export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
 
 export const EditorHeader = ({ workflowId }: { workflowId: string }) => {
   return (
-    <header className="bg-background flex h-14 shrink-0 items-center gap-2 border-b px-4">
+    <header className='bg-background flex h-14 shrink-0 items-center gap-2 border-b px-4'>
       <SidebarTrigger />
-      <div className="flex w-full flex-row items-center justify-between gap-x-4">
+      <div className='flex w-full flex-row items-center justify-between gap-x-4'>
         <EditorBreadcrumbs workflowId={workflowId} />
         <EditorNameInput workflowId={workflowId} />
         <EditorSaveButton workflowId={workflowId} />
