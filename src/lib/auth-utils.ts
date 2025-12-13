@@ -6,10 +6,10 @@ export const requireAuth = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  if (!session) {
-    return redirect('/login');
-  }
-  return session;
+  // if (!session) {
+  //   return redirect('/login');
+  // }
+  // return session;
 };
 
 export const requireUnauth = async () => {

@@ -1,6 +1,6 @@
 'use client';
 
-import { AddNodeButton } from '@/components/add-node-button';
+import { AddNodeButton } from '@/features/editor/components/add-node-button';
 import { ErrorView, LoadingView } from '@/components/entity-components';
 import { InitialNode } from '@/components/initial-node';
 import { nodeComponents } from '@/config/node-components';
@@ -23,6 +23,8 @@ import {
 
 import '@xyflow/react/dist/style.css';
 import { useCallback, useState } from 'react';
+import { editorAtom } from '@/store/atom';
+import { useSetAtom } from 'jotai';
 
 export const EditorLoading = () => {
   return <LoadingView message='Loading workflow...' />;
@@ -34,6 +36,8 @@ export const EditorError = () => {
 
 export const Editor = ({ workflowId }: { workflowId: string }) => {
   const { data: workflow } = useSuspenseWorkflow(workflowId);
+
+  const setEditor = useSetAtom(editorAtom);
 
   const [nodes, setNodes] = useState<Node[]>(workflow.nodes);
   const [edges, setEdges] = useState<Edge[]>(workflow.edges);
@@ -62,13 +66,19 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeComponents}
+        onInit={setEditor}
         fitView
+        snapGrid={[10, 10]}
+        snapToGrid
+        panOnScroll
+        panOnDrag={false}
+        selectionOnDrag
       >
         <Background />
         <Controls />
         <MiniMap />
         <Panel position='top-right'>
-          <AddNodeButton onClick={() => {}} />
+          <AddNodeButton />
         </Panel>
       </ReactFlow>
     </div>

@@ -1,27 +1,42 @@
-import type { ComponentProps } from 'react';
+import type { ComponentProps, HTMLAttributes } from 'react';
 
 import { cn } from '@/lib/utils';
+import { NodeStatus } from './node-status-indicator';
+import { forwardRef } from 'react';
+import { CheckCircle2Icon, Loader2Icon, XCircleIcon } from 'lucide-react';
 
-export function BaseNode({ className, ...props }: ComponentProps<'div'>) {
-  return (
-    <div
-      className={cn(
-        'bg-card text-card-foreground relative rounded-md border',
-        'hover:ring-1',
-        // React Flow displays node elements inside of a `NodeWrapper` component,
-        // which compiles down to a div with the class `react-flow__node`.
-        // When a node is selected, the class `selected` is added to the
-        // `react-flow__node` element. This allows us to style the node when it
-        // is selected, using Tailwind's `&` selector.
-        '[.react-flow\\_\\_node.selected_&]:border-muted-foreground',
-        '[.react-flow\\_\\_node.selected_&]:shadow-lg',
-        className,
-      )}
-      tabIndex={0}
-      {...props}
-    />
-  );
+interface BaseNodeProps extends HTMLAttributes<HTMLDivElement> {
+  status?: NodeStatus;
 }
+
+export const BaseNode = forwardRef<HTMLDivElement, BaseNodeProps>(
+  ({ className, status, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          'bg-card text-card-foreground hover:bg-accent relative rounded-sm border',
+          className,
+        )}
+        tabIndex={0}
+        {...props}
+      >
+        {props.children}
+        {status === 'error' && (
+          <XCircleIcon className='absolute right-0.5 bottom-0.5 size-2 stroke-3 text-red-700' />
+        )}
+        {status === 'success' && (
+          <CheckCircle2Icon className='absolute right-0.5 bottom-0.5 size-2 stroke-3 text-green-700' />
+        )}
+        {status === 'loading' && (
+          <Loader2Icon className='absolute -right-0.5 -bottom-0.5 size-2 animate-spin stroke-3 text-blue-700' />
+        )}
+      </div>
+    );
+  },
+);
+
+BaseNode.displayName = 'BaseNode';
 
 /**
  * A container for a consistent header layout intended to be used inside the
@@ -48,7 +63,7 @@ export function BaseNodeHeader({ className, ...props }: ComponentProps<'header'>
 export function BaseNodeHeaderTitle({ className, ...props }: ComponentProps<'h3'>) {
   return (
     <h3
-      data-slot="base-node-title"
+      data-slot='base-node-title'
       className={cn('user-select-none flex-1 font-semibold', className)}
       {...props}
     />
@@ -58,7 +73,7 @@ export function BaseNodeHeaderTitle({ className, ...props }: ComponentProps<'h3'
 export function BaseNodeContent({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
-      data-slot="base-node-content"
+      data-slot='base-node-content'
       className={cn('flex flex-col gap-y-2 p-3', className)}
       {...props}
     />
@@ -68,7 +83,7 @@ export function BaseNodeContent({ className, ...props }: ComponentProps<'div'>) 
 export function BaseNodeFooter({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
-      data-slot="base-node-footer"
+      data-slot='base-node-footer'
       className={cn('flex flex-col items-center gap-y-2 border-t px-3 pt-2 pb-3', className)}
       {...props}
     />
